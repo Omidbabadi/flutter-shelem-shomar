@@ -1,13 +1,13 @@
+import 'package:myapp/core/common/entities/game.dart';
 import 'package:myapp/core/usecase/usecase.dart';
 import 'package:myapp/src/game/domain/repo/game_repo.dart';
 
-import '../../../../core/common/entities/team.dart';
 import '../../../../core/common/params/points_params.dart';
 
-class KingLose extends UsecaseWithParams<List<Team>,PointsParams > {
+class KingLose extends UsecaseWithParams<Game,PointsParams > {
   const KingLose(this._repo);
   final GameRepo _repo;
 
   @override
-  List<Team> call(PointsParams params) => _repo.kingLosses(params.id, params.claimedPoint, params.earnedByOtherTeam,);
+  Game call(PointsParams params) => _repo.kingLosses(params.id, params.claimedPoint, params.earnedByOtherTeam,);
 }

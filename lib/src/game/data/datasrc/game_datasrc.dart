@@ -1,16 +1,12 @@
 import 'package:myapp/core/common/entities/game.dart';
 import 'package:myapp/src/game/data/models/game.dart';
-import 'package:myapp/src/game/data/models/team.dart';
 
 abstract class GameLocalDatasrc {
-  Game get game;
   bool shouldKingWin(int claimedPoint, int earnedByOtherTeam);
-  List<TeamModel> kingWins(String id, int claimedPoint, int earnedByOtherTeam);
-  List<TeamModel> kingLosses(
-    String id,
-    int claimedPoint,
-    int earnedByOtherTeam,
-  );
+  Game kingWins(String id, int claimedPoint, int earnedByOtherTeam);
+  Game kingLosses(String id, int claimedPoint, int earnedByOtherTeam);
+  Game editTeamName(String id, String newName);
+  Game setKingTeam(String id);
 }
 
 class GameLocalDatasrcImpl implements GameLocalDatasrc {
@@ -19,14 +15,21 @@ class GameLocalDatasrcImpl implements GameLocalDatasrc {
   final GameModel _game;
 
   @override
-  Game get game => _game.toEntity();
+  Game editTeamName(String id, String newName) {
+    final teams = _game.teams;
+    final newTeams = teams.map((e) {
+      if (e.id == id) {
+        final newTeam = e.copyWith(name: newName);
+        return newTeam;
+      } else {
+        return e;
+      }
+    }).toList();
+    return _game.copyWith(teams: newTeams).toEntity();
+  }
 
   @override
-  List<TeamModel> kingLosses(
-    String id,
-    int claimedPoint,
-    int earnedByOtherTeam,
-  ) {
+  Game kingLosses(String id, int claimedPoint, int earnedByOtherTeam) {
     final bool shouldDoubleIt =
         earnedByOtherTeam >= _game.gameSettings.doubleMinusPoint;
     if (shouldDoubleIt) {
@@ -36,32 +39,35 @@ class GameLocalDatasrcImpl implements GameLocalDatasrc {
       if (e.id == id) {
         e.totalScores.add(claimedPoint * -1);
 
-        return e;
+        return e.copyWith(totalScoreSum: e.totalScoreSum + claimedPoint);
       } else {
         e.totalScores.add(earnedByOtherTeam);
 
-        return e;
+        return e.copyWith(totalScoreSum: e.totalScoreSum + claimedPoint);
       }
     }).toList();
-    return newScores;
+    final game = _game.copyWith(teams: newScores, claimedPoint: claimedPoint);
+    return game.toEntity();
   }
 
   @override
-  List<TeamModel> kingWins(String id, int claimedPoint, int earnedByOtherTeam) {
+  Game kingWins(String id, int claimedPoint, int earnedByOtherTeam) {
     if (earnedByOtherTeam == 0) {
       claimedPoint = _game.gameSettings.kingGetsAllPoints;
     }
     final newScores = _game.teams.map((e) {
       if (e.id == id) {
         e.totalScores.add(claimedPoint);
-        return e;
+        return e.copyWith(totalScoreSum: e.totalScoreSum + claimedPoint);
       } else {
         e.totalScores.add(earnedByOtherTeam);
-        return e;
+        return e.copyWith(totalScoreSum: e.totalScoreSum + claimedPoint);
       }
     }).toList();
 
-    return newScores;
+    final game = _game.copyWith(teams: newScores, claimedPoint: claimedPoint);
+
+    return game.toEntity();
   }
 
   @override
@@ -69,4 +75,7 @@ class GameLocalDatasrcImpl implements GameLocalDatasrc {
     return (claimedPoint + earnedByOtherTeam) <=
         _game.gameSettings.maxClaimedPoint;
   }
+
+  @override
+  Game setKingTeam(String id) => _game.copyWith(kingTeamId: id).toEntity();
 }

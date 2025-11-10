@@ -20,8 +20,8 @@ Future<void> _gameInit() async {
     ..registerLazySingleton(() => KingLose(sl()))
     ..registerLazySingleton(() => KingWin(sl()))
     ..registerLazySingleton(() => ShouldKingWin(sl()))
+    ..registerLazySingleton(() => SetKingTeam(sl()))
     ..registerLazySingleton<GameRepo>(() => GameRepoImpl(sl()))
     ..registerLazySingleton<GameLocalDatasrc>(() => GameLocalDatasrcImpl(sl()))
     ..registerLazySingleton(() => game);
-  
 }

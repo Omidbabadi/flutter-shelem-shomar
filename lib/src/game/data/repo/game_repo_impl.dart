@@ -1,5 +1,4 @@
 import 'package:myapp/core/common/entities/game.dart';
-import 'package:myapp/core/common/entities/team.dart';
 import 'package:myapp/src/game/data/datasrc/game_datasrc.dart';
 import 'package:myapp/src/game/domain/repo/game_repo.dart';
 
@@ -8,15 +7,21 @@ class GameRepoImpl implements GameRepo {
   final GameLocalDatasrc _datasrc;
 
   @override
-  List<Team> kingLosses(String id, int claimedPoint, int earnedByOtherTeam) {
-    final teams = _datasrc.kingLosses(id, claimedPoint, earnedByOtherTeam);
-    return teams;
+  Game editTeamName(String id, String newName) {
+    final game = _datasrc.editTeamName(id, newName);
+    return game;
   }
 
   @override
-  List<Team> kingWins(String id, int claimedPoint, int earnedByOtherTeam) {
-    final teams = _datasrc.kingWins(id, claimedPoint, earnedByOtherTeam);
-    return teams;
+  Game kingLosses(String id, int claimedPoint, int earnedByOtherTeam) {
+    final game = _datasrc.kingLosses(id, claimedPoint, earnedByOtherTeam);
+    return game;
+  }
+
+  @override
+  Game kingWins(String id, int claimedPoint, int earnedByOtherTeam) {
+    final game = _datasrc.kingWins(id, claimedPoint, earnedByOtherTeam);
+    return game;
   }
 
   @override
@@ -29,6 +34,7 @@ class GameRepoImpl implements GameRepo {
   }
 
   @override
-  // TODO: implement game
-  Game get game => throw UnimplementedError();
+  Game setKingTeam(String id) {
+    return _datasrc.setKingTeam(id);
+  }
 }

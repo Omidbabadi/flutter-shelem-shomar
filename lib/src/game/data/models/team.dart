@@ -36,6 +36,7 @@ class TeamModel extends Team {
         id: json['id'],
       );
 
+  factory TeamModel.fromEntity(Team entity) => TeamModel(totalScores: entity.totalScores, totalScoreSum: totalScoreSum, name: name, id: id)
 
   Team toEntity(TeamModel team) {
     return Team(

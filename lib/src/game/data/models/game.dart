@@ -7,21 +7,22 @@ class GameModel {
     required this.teams,
     required this.gameSettings,
     required this.kingTeamId,
-  });
+  this.claimedPoint});
 
   final List<TeamModel> teams;
   final GameSettingsModel gameSettings;
   final String kingTeamId;
+  final int? claimedPoint;
 
   GameModel copyWith({
     List<TeamModel>? teams,
     GameSettingsModel? gameSettings,
-    String? kingTeamId,
+    String? kingTeamId,int? claimedPoint
   }) {
     return GameModel(
       teams: teams ?? this.teams,
       gameSettings: gameSettings ?? this.gameSettings,
-      kingTeamId: kingTeamId ?? this.kingTeamId,
+      kingTeamId: kingTeamId ?? this.kingTeamId,claimedPoint: claimedPoint ?? this.claimedPoint,
     );
   }
 
@@ -29,13 +30,16 @@ class GameModel {
     'teams': teams.map((e) => e.toJson()).toList(),
     'gameSettings': gameSettings.toJson(),
     'kingTeamId': kingTeamId,
+    'claimedPoint': claimedPoint
   };
 
   factory GameModel.fromJson(Map<String, dynamic> json) => GameModel(
-    teams: List<TeamModel>.from(json['teams'].map((e) => TeamModel.fromJson(e))),
+    teams: List<TeamModel>.from(
+      json['teams'].map((e) => TeamModel.fromJson(e)),
+    ),
     gameSettings: GameSettingsModel.fromJson(json['gameSettings']),
     kingTeamId: json['kingTeamId'],
-
+    claimedPoint: json['claimedPoint'],
   );
 
   Game toEntity() {
@@ -43,6 +47,7 @@ class GameModel {
       gameSettings: gameSettings,
       kingTeamId: kingTeamId,
       teams: teams.map((e) => e.toEntity(e)).toList(),
+      claimedPoint: claimedPoint
     );
   }
 }

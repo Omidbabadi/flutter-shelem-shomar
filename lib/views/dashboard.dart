@@ -98,7 +98,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
     //     },
     //   );
     // }
-
     return Scaffold(
       appBar: AppBar(title: const Text('Dashboard')),
       floatingActionButton: ElevatedButton(

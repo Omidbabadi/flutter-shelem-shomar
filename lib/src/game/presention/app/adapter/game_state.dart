@@ -9,15 +9,13 @@ final class GameInit extends GameState {
 }
 
 final class KingWins extends GameState {
-  const KingWins(this.kingScore, this.otherTeamScore);
-  final int kingScore;
-  final int otherTeamScore;
+  const KingWins(this.game);
+  final Game game;
 }
 
 final class KingLoses extends GameState {
-  const KingLoses(this.kingScore, this.otherTeamScore);
-  final int kingScore;
-  final int otherTeamScore;
+  const KingLoses(this.game);
+  final Game game;
 }
 
 final class GameEnds extends GameState {

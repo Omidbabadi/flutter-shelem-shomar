@@ -22,15 +22,19 @@ class CacheHelper {
   GameModel loadGame() {
     final game = _prefs.getString(_game);
     if (game == null) {
-      return GameModel(teams: [
-        TeamModel(id: '1', name: 'ما', totalScores: [],totalScoreSum: 0),
-                TeamModel(id: '2', name: 'اونا', totalScores: [],totalScoreSum: 0),
-
-      ], gameSettings: GameSettingsModel(endGameDiffrence: 1165,
-       maxClaimedPoint: 165,
-        doubleMinusPoint: 85,
-         kingGetsAllPoints: 165),
-          kingTeamId: '1' );      
+      return GameModel(
+        teams: [
+          TeamModel(id: '0', name: 'ما', totalScores: [], totalScoreSum: 0),
+          TeamModel(id: '1', name: 'اونا', totalScores: [], totalScoreSum: 0),
+        ],
+        gameSettings: GameSettingsModel(
+          endGameDiffrence: 1165,
+          maxClaimedPoint: 165,
+          doubleMinusPoint: 85,
+          kingGetsAllPoints: 165,
+        ),
+        kingTeamId: '1',claimedPoint: 0
+      );
     }
     final decodedGame = jsonDecode(game) as GameModel;
     return decodedGame;

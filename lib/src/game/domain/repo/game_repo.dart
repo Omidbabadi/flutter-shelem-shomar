@@ -1,12 +1,12 @@
 import 'package:myapp/core/common/entities/game.dart';
 
-import '../../../../core/common/entities/team.dart';
 
 abstract class GameRepo {
   const GameRepo();
 
-  Game get game;
+  Game editTeamName(String id,String newName);
   bool shouldKingWin(int claimedPoint, int earnedByOtherTeam);
-  List<Team> kingWins(String id, int claimedPoint, int earnedByOtherTeam);
-  List<Team> kingLosses(String id, int claimedPoint, int earnedByOtherTeam);
+  Game kingWins(String id, int claimedPoint, int earnedByOtherTeam);
+  Game kingLosses(String id, int claimedPoint, int earnedByOtherTeam);
+  Game setKingTeam(String id);
 }
