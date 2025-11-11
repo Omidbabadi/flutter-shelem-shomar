@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/core/common/app/riverpod/current_game.dart';
 import 'package:myapp/core/extensions/context_ext.dart';
 import 'package:myapp/core/res/styles/color.dart';
-import 'package:myapp/core/res/styles/text.dart';
+
+import '../../../dashboard/widget/containers.dart';
 
 //TODO: change team logic
 
@@ -19,15 +20,8 @@ class TeamNameWidget extends ConsumerWidget {
     final game = ref.watch(currentGameProvider);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 150,
-        padding: EdgeInsets.all(12),
-        alignment: AlignmentGeometry.center,
-        decoration: BoxDecoration(
-          color: Colours.newGameContainer.withAlpha(22),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
+      child: Containers(
+       Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('انتخاب نام تیم ها'),

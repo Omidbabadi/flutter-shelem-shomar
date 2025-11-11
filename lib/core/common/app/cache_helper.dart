@@ -33,7 +33,7 @@ class CacheHelper {
           doubleMinusPoint: 85,
           kingGetsAllPoints: 165,
         ),
-        kingTeamId: '1',claimedPoint: 0
+        kingTeamId: '0',claimedPoint: []
       );
     }
     final decodedGame = jsonDecode(game) as GameModel;

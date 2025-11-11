@@ -41,12 +41,12 @@ class _DashboardState extends ConsumerState<Dashboard> {
       backgroundColor: Color(0xffF5EFFF),
       key: DashboardUtils.scaffoldKey,
       body: SlidingBox(
-        draggable: false,
+        draggable: isInGamePointView,
         backdrop: Backdrop(
           body: DashboardBackDrop(
             claimedPointController: claimedPointController,
             earnedByOtherTeamController: earnedByOtherTeamController,
-          )
+          ),
         ),
         maxHeight: context.height,
         minHeight: context.height / 2,
@@ -59,11 +59,15 @@ class _DashboardState extends ConsumerState<Dashboard> {
               onPressed: () {
                 switch (boxController.isBoxClosed) {
                   case true:
+                    if (claimedPointController.text.isEmpty ||
+                        earnedByOtherTeamController.text.isEmpty) {
+                      boxController.openBox();
+                      break;
+                    }
                     final claimedPoint =
                         int.tryParse(claimedPointController.text) ?? 0;
                     final earnedByOtherTeam =
                         int.tryParse(earnedByOtherTeamController.text) ?? 0;
-                    print(kingId);
                     controller.calculatePoint(
                       kingId,
                       claimedPoint,

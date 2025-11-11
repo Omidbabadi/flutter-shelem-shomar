@@ -46,7 +46,8 @@ class GameLocalDatasrcImpl implements GameLocalDatasrc {
         return e.copyWith(totalScoreSum: e.totalScoreSum + claimedPoint);
       }
     }).toList();
-    final game = _game.copyWith(teams: newScores, claimedPoint: claimedPoint);
+    _game.claimedPoint.add(claimedPoint);
+    final game = _game.copyWith(teams: newScores);
     return game.toEntity();
   }
 
@@ -64,8 +65,9 @@ class GameLocalDatasrcImpl implements GameLocalDatasrc {
         return e.copyWith(totalScoreSum: e.totalScoreSum + claimedPoint);
       }
     }).toList();
+    _game.claimedPoint.add(claimedPoint);
 
-    final game = _game.copyWith(teams: newScores, claimedPoint: claimedPoint);
+    final game = _game.copyWith(teams: newScores);
 
     return game.toEntity();
   }

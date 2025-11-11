@@ -43,7 +43,6 @@ class _NewGameScreenState extends ConsumerState<NewGameScreen> {
           teamBController: teamBController,
         ),
         //end game point selection
-        Container(),
         // next or cancel
         Row(
           children: [
@@ -57,8 +56,7 @@ class _NewGameScreenState extends ConsumerState<NewGameScreen> {
               onPressed: () {
                 if (teamAController.text.isEmpty &&
                     teamBController.text.isEmpty) {
-                  print(game.teams[0].name);
-                  print(game.teams[1].name);
+                  
                   context.go(GamePointsView.path);
                   return;
                 } else if (teamAController.text.isEmpty) {

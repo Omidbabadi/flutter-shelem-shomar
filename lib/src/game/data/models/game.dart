@@ -7,17 +7,18 @@ class GameModel {
     required this.teams,
     required this.gameSettings,
     required this.kingTeamId,
-  this.claimedPoint});
+  required this.claimedPoint});
 
   final List<TeamModel> teams;
   final GameSettingsModel gameSettings;
   final String kingTeamId;
-  final int? claimedPoint;
+  final List<int> claimedPoint;
 
   GameModel copyWith({
     List<TeamModel>? teams,
     GameSettingsModel? gameSettings,
-    String? kingTeamId,int? claimedPoint
+    String? kingTeamId,
+    List<int>? claimedPoint
   }) {
     return GameModel(
       teams: teams ?? this.teams,

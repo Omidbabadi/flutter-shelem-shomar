@@ -21,29 +21,33 @@ class TeamModel extends Team {
     );
   }
 
-  
   Map<String, dynamic> toJson() => {
-        'totalScores': totalScores,
-        'totalScoreSum': totalScoreSum,
-        'name': name,
-        'id': id,
-      };
+    'totalScores': totalScores,
+    'totalScoreSum': totalScoreSum,
+    'name': name,
+    'id': id,
+  };
 
   factory TeamModel.fromJson(Map<String, dynamic> json) => TeamModel(
-        totalScores: List<int>.from(json['totalScores']),
-        totalScoreSum: json['totalScoreSum'],
-        name: json['name'],
-        id: json['id'],
-      );
+    totalScores: List<int>.from(json['totalScores']),
+    totalScoreSum: json['totalScoreSum'],
+    name: json['name'],
+    id: json['id'],
+  );
 
-  factory TeamModel.fromEntity(Team entity) => TeamModel(totalScores: entity.totalScores, totalScoreSum: totalScoreSum, name: name, id: id)
+  factory TeamModel.fromEntity(Team entity) => TeamModel(
+    totalScores: entity.totalScores,
+    totalScoreSum: entity.totalScoreSum,
+    name: entity.name,
+    id: entity.id,
+  );
 
   Team toEntity(TeamModel team) {
     return Team(
       id: id,
       name: name,
       totalScores: totalScores,
-      totalScoreSum: totalScoreSum
+      totalScoreSum: totalScoreSum,
     );
   }
 }
